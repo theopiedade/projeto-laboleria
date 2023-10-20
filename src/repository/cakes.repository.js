@@ -11,14 +11,11 @@ export async function createCake(name, price, image, description) {
 
 }
 
-
 export async function checkCakesName(name) {
 
     return (
         db.query(`
-        SELECT * FROM cakes WHERE name = 
-        ($1);
-        `, [name])
+        SELECT * FROM cakes WHERE name = ($1);`, [name])
     )
 
 }
