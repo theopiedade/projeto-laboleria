@@ -20,3 +20,12 @@ export async function checkCakesName(name) {
 
 }
 
+export async function checkCakeById(id) {
+
+    return (
+        db.query(`
+        SELECT * FROM cakes WHERE id = ($1);`, [id])
+    )
+
+}
+

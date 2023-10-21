@@ -11,3 +11,12 @@ export async function createClient(name, address, phone) {
 
 }
 
+
+export async function checkClientById(id) {
+
+    return (
+        db.query(`
+        SELECT * FROM clients WHERE id = ($1);`, [id])
+    )
+
+}
