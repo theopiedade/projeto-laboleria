@@ -1,6 +1,6 @@
 import { checkCakeById } from "../repository/cakes.repository.js";
 import { checkClientById } from "../repository/clients.repository.js";
-import { createOrder } from "../repository/orders.repository.js"
+import { createOrder, ordersByDate } from "../repository/orders.repository.js"
 
 
 export async function postOrder(req, res) {
@@ -23,3 +23,22 @@ export async function postOrder(req, res) {
     }
 
 }
+
+export async function getOrderByDate(req, res) {
+    const { date } = req.body
+
+
+    try {
+
+        const orders = await ordersByDate(date)
+
+        if (orders.rowCount <= 0) return res.status(404).send([])
+
+        return res.status(200).send(orders.rows)
+
+    } catch (err) {
+        return res.status(500).send(err.message)
+    }
+
+}
+
