@@ -16,8 +16,10 @@ export async function ordersByDate(date) {
     return (
         db.query(`
         SELECT JSON_BUILD_OBJECT('id', clients.id, 'name', clients.name, 'address', clients.address) AS "clients",
-        JSON_BUILD_OBJECT('id', cakes.id, 'name', cakes.name, 'price', cakes.price, 'description', cakes.description, 'image', cakes.image) AS "cakes",
-        orders.id AS "orderId", TO_CHAR(orders."createdAt", 'YYYY-MM-DD HH24:MI') AS "createdAt", orders.quantity AS "quantity", orders."totalPrice" AS "totalPrice" 
+        JSON_BUILD_OBJECT('id', cakes.id, 'name', cakes.name, 'price', TO_CHAR(cakes.price, 'FM99.00'), 'description', 
+        cakes.description, 'image', cakes.image) AS "cakes",
+        orders.id AS "orderId", TO_CHAR(orders."createdAt", 'YYYY-MM-DD HH24:MI') AS "createdAt", orders.quantity AS "quantity", 
+        TO_CHAR(orders."totalPrice", 'FM99.00') AS "totalPrice" 
         FROM orders
         JOIN clients ON clients.id = orders."clientId"
         JOIN cakes ON cakes.id = orders."cakeId"
